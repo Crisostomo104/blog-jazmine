@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Jazmine's Journal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .page-container {
+            max-width: 800px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            color: var(--color-primary-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Jazmine's Journal</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-item" data-category="Home">Home</a></li>
+                <li><a href="index.html#latest" class="nav-item" data-category="Posts">Posts</a></li>
+                <li><a href="contact.html" class="active">Contacts</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#" onclick="openSearch()"><i data-feather="search"></i></a>
+            </div>
+        </div>
+    </nav>
+    <main class="page-container" style="max-width: 800px; margin: 5rem auto; padding: 0 2rem;">
+        <h1
+            style="text-align: center; font-size: 3.5rem; color: var(--color-primary-dark); margin-bottom: 1.5rem; font-family: var(--font-heading);">
+            Let's Connect</h1>
+        <p style="text-align: center; margin-bottom: 4rem; font-size: 1.1rem; color: var(--color-text);">I love
+            connecting with my community! You can find me sharing my daily life, beauty finds, and aesthetic moments
+            across these platforms.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 500px; margin: 0 auto;">
+            <a href="https://www.instagram.com/itz_kxndall" target="_blank" class="social-card"
+                style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem 2rem; background: var(--color-surface); border-radius: 16px; box-shadow: var(--shadow-md); border: 1px solid var(--color-border); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <i data-feather="instagram" style="color: #E1306C; width: 32px; height: 32px;"></i>
+                <div>
+                    <h3
+                        style="margin-bottom: 0.2rem; color: var(--color-heading); font-family: var(--font-body); font-weight: 600;">
+                        Instagram</h3>
+                    <p style="font-size: 0.9rem; color: #6b7280; margin: 0;">@itz_kxndall</p>
+                </div>
+            </a>
+
+            <a href="https://www.facebook.com/Szaura" target="_blank" class="social-card"
+                style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem 2rem; background: var(--color-surface); border-radius: 16px; box-shadow: var(--shadow-md); border: 1px solid var(--color-border); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <i data-feather="facebook" style="color: #1877F2; width: 32px; height: 32px;"></i>
+                <div>
+                    <h3
+                        style="margin-bottom: 0.2rem; color: var(--color-heading); font-family: var(--font-body); font-weight: 600;">
+                        Facebook</h3>
+                    <p style="font-size: 0.9rem; color: #6b7280; margin: 0;">Szaura</p>
+                </div>
+            </a>
+
+            <a href="mailto:deandresjaz@gmail.com" class="social-card"
+                style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem 2rem; background: var(--color-surface); border-radius: 16px; box-shadow: var(--shadow-md); border: 1px solid var(--color-border); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <i data-feather="mail" style="color: var(--color-primary); width: 32px; height: 32px;"></i>
+                <div>
+                    <h3
+                        style="margin-bottom: 0.2rem; color: var(--color-heading); font-family: var(--font-body); font-weight: 600;">
+                        Email Me</h3>
+                    <p style="font-size: 0.9rem; color: #6b7280; margin: 0;">deandresjaz@gmail.com</p>
+                </div>
+            </a>
+        </div>
+
+        <style>
+            .social-card:hover {
+                transform: translateY(-5px);
+                box-shadow: var(--shadow-lg) !important;
+            }
+        </style>
+    </main>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Jazmine's Journal</h3>
+                <p>Curating a beautiful life, one post at a time.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/Szaura" target="_blank"><i data-feather="facebook"></i></a>
+                    <a href="https://www.instagram.com/itz_kxndall" target="_blank"><i data-feather="instagram"></i></a>
+                    <a href="mailto:deandresjaz@gmail.com"><i data-feather="mail"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Explore</h4>
+                    <a href="about.html">About Me</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="work.html">Work With Me</a>
+                </div>
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Jazmine's Journal. All rights reserved.</p>
+            <p>Made with ❤️ by <a href="https://loadsss.vercel.app/"
+                    style="color: var(--color-primary-dark); text-decoration: underline; " target="_blank">Loadsss</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        function openSearch() {
+            if (typeof Swal === 'undefined') {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/sweetalert2@11";
+                script.onload = function () { showSearchAlert(); };
+                document.head.appendChild(script);
+            } else {
+                showSearchAlert();
+            }
+        }
+
+        function showSearchAlert() {
+            Swal.fire({
+                title: 'Search Articles',
+                input: 'text',
+                inputPlaceholder: 'Search for skincare, outfits, places...',
+                showCancelButton: true,
+                confirmButtonText: 'Search',
+                confirmButtonColor: '#f472b6',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed && result.value) {
+                    window.location.href = 'index.html?search=' + encodeURIComponent(result.value) + '#latest';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

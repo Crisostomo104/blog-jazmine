@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jazmine's Journal | Lifestyle & Beauty</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="data.js"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Jazmine's Journal</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-item" data-category="Home">Home</a></li>
+                <li><a href="#latest" class="nav-item" data-category="Posts">Posts</a></li>
+                <li><a href="contact.html">Contacts</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#" onclick="openSearch()"><i data-feather="search"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-image-container">
+            <img src="images/intramuros/3e24780e-bf15-45f3-9c74-ad9b077478e4.jpg" alt="Intramuros Aesthetic"
+                class="hero-image">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="category-badge">Travel Feature</span>
+                <h1>A Romantic Stroll Through Intramuros</h1>
+                <p>Exploring the historic cobblestone streets and hidden cafes of Manila's walled city.</p>
+                <a href="article.html?id=4" class="btn btn-primary">Read More</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container" id="latest">
+        <div class="section-header">
+            <h2 id="sectionTitle">Latest Posts</h2>
+            <div class="divider"></div>
+            <div class="filter-menu"
+                style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <a href="index.html#latest" class="btn filter-btn" data-filter="All"
+                    style="background: white; border: 1px solid var(--color-border); color: var(--color-text);">All</a>
+                <a href="index.html?category=Fashion#latest" class="btn filter-btn" data-filter="Fashion"
+                    style="background: white; border: 1px solid var(--color-border); color: var(--color-text);">Fashion</a>
+                <a href="index.html?category=Beauty#latest" class="btn filter-btn" data-filter="Beauty"
+                    style="background: white; border: 1px solid var(--color-border); color: var(--color-text);">Beauty</a>
+                <a href="index.html?category=Lifestyle#latest" class="btn filter-btn" data-filter="Lifestyle"
+                    style="background: white; border: 1px solid var(--color-border); color: var(--color-text);">Lifestyle</a>
+                <a href="index.html?category=Travel#latest" class="btn filter-btn" data-filter="Travel"
+                    style="background: white; border: 1px solid var(--color-border); color: var(--color-text);">Travel</a>
+            </div>
+        </div>
+
+        <div class="blog-grid" id="blogGrid">
+            <!-- Posts will be rendered here by JavaScript -->
+        </div>
+
+        <div class="see-more-actions" id="seeMoreActions">
+            <button type="button" class="btn btn-secondary" id="seeMoreBtn">See More</button>
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Jazmine's Journal</h3>
+                <p>Curating a beautiful life, one post at a time.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/Szaura" target="_blank"><i data-feather="facebook"></i></a>
+                    <a href="https://www.instagram.com/itz_kxndall" target="_blank"><i data-feather="instagram"></i></a>
+                    <a href="mailto:deandresjaz@gmail.com"><i data-feather="mail"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Explore</h4>
+                    <a href="about.html">About Me</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="work.html">Work With Me</a>
+                </div>
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Jazmine's Journal. All rights reserved.</p>
+            <p>Made with ❤️ by <a href="https://loadsss.vercel.app/"
+                    style="color: var(--color-primary-dark); text-decoration: underline; " target="_blank">Loadsss</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let showAllPosts = false;
+
+        function getInitialPostLimit() {
+            return window.matchMedia('(max-width: 600px)').matches ? 3 : 4;
+        }
+
+        // Render posts logic
+        function renderPosts() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            const search = urlParams.get('search');
+
+            let filteredPosts = posts;
+            const sectionTitle = document.getElementById('sectionTitle');
+
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+            if (category) {
+                filteredPosts = posts.filter(p => p.category === category);
+                sectionTitle.textContent = category + ' Posts';
+                // Set active nav link and filter button
+                document.querySelectorAll('.nav-item').forEach(el => {
+                    if (el.dataset.category === category) el.classList.add('active');
+                });
+                document.querySelectorAll('.filter-btn').forEach(el => {
+                    if (el.dataset.filter === category) {
+                        el.style.background = 'var(--color-primary)';
+                        el.style.color = 'white';
+                        el.style.borderColor = 'var(--color-primary)';
+                    }
+                });
+            } else if (search) {
+                const s = search.toLowerCase();
+                filteredPosts = posts.filter(p => p.title.toLowerCase().includes(s) || p.content.toLowerCase().includes(s) || p.category.toLowerCase().includes(s));
+                sectionTitle.textContent = 'Search Results for "' + search + '"';
+
+                // Highlight filter button if search explicitly matches a category OR if all results belong to the same category
+                let activeCategoryToHighlight = null;
+                if (['fashion', 'beauty', 'lifestyle', 'travel'].includes(s)) {
+                    // If they literally typed a category name
+                    activeCategoryToHighlight = s;
+                } else if (filteredPosts.length > 0) {
+                    // If they searched a title (like 'intramuros') and all results share the same category
+                    const firstCat = filteredPosts[0].category;
+                    const allSameCat = filteredPosts.every(p => p.category === firstCat);
+                    if (allSameCat) {
+                        activeCategoryToHighlight = firstCat.toLowerCase();
+                    }
+                }
+
+                if (activeCategoryToHighlight) {
+                    document.querySelectorAll('.filter-btn').forEach(el => {
+                        if (el.dataset.filter.toLowerCase() === activeCategoryToHighlight) {
+                            el.style.background = 'var(--color-primary)';
+                            el.style.color = 'white';
+                            el.style.borderColor = 'var(--color-primary)';
+                        }
+                    });
+                }
+            } else {
+                const latestSection = document.getElementById('latest');
+                const isViewingPosts = window.location.hash === '#latest' ||
+                    (latestSection && latestSection.getBoundingClientRect().top <= window.innerHeight * 0.4);
+
+                if (isViewingPosts) {
+                    document.querySelector('.nav-item[data-category="Posts"]').classList.add('active');
+                } else {
+                    document.querySelector('.nav-item[data-category="Home"]').classList.add('active');
+                }
+                document.querySelector('.filter-btn[data-filter="All"]').style.background = 'var(--color-primary)';
+                document.querySelector('.filter-btn[data-filter="All"]').style.color = 'white';
+                document.querySelector('.filter-btn[data-filter="All"]').style.borderColor = 'var(--color-primary)';
+            }
+
+            const grid = document.getElementById('blogGrid');
+            const seeMoreActions = document.getElementById('seeMoreActions');
+            const initialPostLimit = getInitialPostLimit();
+            const visiblePosts = showAllPosts ? filteredPosts : filteredPosts.slice(0, initialPostLimit);
+            grid.innerHTML = '';
+
+            if (filteredPosts.length === 0) {
+                grid.innerHTML = '<div style="text-align: center; grid-column: 1 / -1; padding: 4rem 0;"><i data-feather="frown" style="width: 48px; height: 48px; color: var(--color-primary); margin-bottom: 1rem;"></i><h3 style="font-family: var(--font-heading); color: var(--color-primary-dark);">No posts found.</h3></div>';
+            } else {
+                visiblePosts.forEach(post => {
+                    grid.innerHTML += `
+                        <article class="post-card">
+                            <a href="article.html?id=${post.id}"><img src="${post.image}" alt="${post.title}" class="post-image" style="cursor: pointer;"></a>
+                            <div class="post-content">
+                                <span class="post-category">${post.category}</span>
+                                <h2 class="post-title"><a href="article.html?id=${post.id}">${post.title}</a></h2>
+                                <p class="post-excerpt">${post.excerpt}</p>
+                                <div class="post-meta">
+                                    <span class="date"><i data-feather="calendar" style="width: 14px; height: 14px; margin-bottom: -2px;"></i> ${post.date}</span>
+                                    <a href="article.html?id=${post.id}" class="read-more">Read <i data-feather="arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                });
+            }
+
+            seeMoreActions.style.display = filteredPosts.length > initialPostLimit && !showAllPosts ? 'block' : 'none';
+            feather.replace();
+        }
+
+        renderPosts();
+
+        document.getElementById('seeMoreBtn').addEventListener('click', function () {
+            showAllPosts = true;
+            renderPosts();
+            updateScrollSpy();
+        });
+
+        window.matchMedia('(max-width: 600px)').addEventListener('change', function () {
+            if (!showAllPosts) renderPosts();
+        });
+
+        // Smooth scroll back to the hero when Home is clicked on the homepage
+        document.querySelector('.nav-item[data-category="Home"]').addEventListener('click', function (e) {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (!urlParams.get('category') && !urlParams.get('search')) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                history.pushState(null, null, 'index.html');
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+
+        // Search Functionality
+        function openSearch() {
+            Swal.fire({
+                title: 'Search Articles',
+                input: 'text',
+                inputPlaceholder: 'Search for skincare, outfits, places...',
+                showCancelButton: true,
+                confirmButtonText: 'Search',
+                confirmButtonColor: '#f472b6',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed && result.value) {
+                    window.location.href = 'index.html?search=' + encodeURIComponent(result.value) + '#latest';
+                }
+            });
+        }
+
+        // Simple smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    // Update URL hash without jumping
+                    history.pushState(null, null, targetId);
+
+                    // Highlight nav item
+                    if (this.classList.contains('nav-item')) {
+                        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                        this.classList.add('active');
+                    } else if (targetId === '#latest') {
+                        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                        const postsNav = document.querySelector('.nav-item[data-category="Posts"]');
+                        if (postsNav) postsNav.classList.add('active');
+                    }
+                }
+            });
+        });
+
+        // Scroll spy for navigation highlighting
+        const latestSection = document.getElementById('latest');
+        const navItems = document.querySelectorAll('.nav-item');
+        const postsNav = document.querySelector('.nav-item[data-category="Posts"]');
+        const homeNav = document.querySelector('.nav-item[data-category="Home"]');
+        const pageParams = new URLSearchParams(window.location.search);
+        const canHighlightHome = !pageParams.get('category') && !pageParams.get('search');
+        let activeNav = document.querySelector('.nav-item.active');
+        let scrollTicking = false;
+
+        function setActiveNav(nextActiveNav) {
+            if (!nextActiveNav || activeNav === nextActiveNav) return;
+
+            navItems.forEach(el => el.classList.remove('active'));
+            nextActiveNav.classList.add('active');
+            activeNav = nextActiveNav;
+        }
+
+        function updateScrollSpy() {
+            scrollTicking = false;
+            if (!latestSection) return;
+
+            const offset = window.innerHeight * 0.4;
+            if (latestSection.getBoundingClientRect().top <= offset) {
+                setActiveNav(postsNav);
+            } else if (canHighlightHome) {
+                setActiveNav(homeNav);
+            }
+        }
+
+        window.addEventListener('scroll', function () {
+            if (!scrollTicking) {
+                window.requestAnimationFrame(updateScrollSpy);
+                scrollTicking = true;
+            }
+        }, { passive: true });
+    </script>
+</body>
+
+</html>

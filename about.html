@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Jazmine's Journal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .about-container {
+            max-width: 900px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-primary-dark);
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--color-text);
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Jazmine's Journal</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-item" data-category="Home">Home</a></li>
+                <li><a href="index.html#latest" class="nav-item" data-category="Posts">Posts</a></li>
+                <li><a href="contact.html">Contacts</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#" onclick="openSearch()"><i data-feather="search"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Content -->
+    <main class="about-container">
+        <img src="images/starting.jpg" alt="About Jazmine" class="about-image">
+        <div class="about-content">
+            <h1>Hi, I'm Jazmine</h1>
+            <p>Welcome to my journal. I started this blog as a creative outlet to share my passion for beauty, fashion,
+                and intentional living.</p>
+            <p>I believe that elegance isn't about how much you spend, but how carefully you curate your life. Whether
+                it's finding the perfect capsule wardrobe pieces or creating a soothing evening routine, I'm here to
+                share my discoveries with you.</p>
+            <p>When I'm not writing, you can find me exploring local coffee shops, reading classic literature, or
+                reorganizing my vanity (again!).</p>
+            <p>Thank you for being part of this beautiful community.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Signature_of_Jasmine_Tookes.svg/320px-Signature_of_Jasmine_Tookes.svg.png"
+                alt="Signature" style="height: 50px; opacity: 0.7; margin-top: 1rem;">
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Jazmine's Journal</h3>
+                <p>Curating a beautiful life, one post at a time.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/Szaura" target="_blank"><i data-feather="facebook"></i></a>
+                    <a href="https://www.instagram.com/itz_kxndall" target="_blank"><i data-feather="instagram"></i></a>
+                    <a href="mailto:deandresjaz@gmail.com"><i data-feather="mail"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Explore</h4>
+                    <a href="about.html">About Me</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="work.html">Work With Me</a>
+                </div>
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Jazmine's Journal. All rights reserved.</p>
+            <p>Made with ❤️ by <a href="https://loadsss.vercel.app/"
+                    style="color: var(--color-primary-dark); text-decoration: underline; " target="_blank">Loadsss</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        function openSearch() {
+            // Check if SweetAlert is loaded, if not load it dynamically (since about.html might not have the script tag in head)
+            if (typeof Swal === 'undefined') {
+                var script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/sweetalert2@11";
+                script.onload = function () { showSearchAlert(); };
+                document.head.appendChild(script);
+            } else {
+                showSearchAlert();
+            }
+        }
+
+        function showSearchAlert() {
+            Swal.fire({
+                title: 'Search Articles',
+                input: 'text',
+                inputPlaceholder: 'Search for skincare, outfits, places...',
+                showCancelButton: true,
+                confirmButtonText: 'Search',
+                confirmButtonColor: '#f472b6',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed && result.value) {
+                    window.location.href = 'index.html?search=' + encodeURIComponent(result.value) + '#latest';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
